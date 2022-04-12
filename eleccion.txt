@@ -1,0 +1,1 @@
+Para el trabajo final elijo pug por la facilidad del layout y sus extensiones, sumado a la sintaxsis y porque me canse de usar ejs.
