@@ -10,3 +10,16 @@ label {
 .jumbotron {
     min-height: 100vh;
 }
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+hr {
+    background-color: #ddd;
+}
+
+.fotito{
+    width: auto;
+    max-height: 5rem;
+}

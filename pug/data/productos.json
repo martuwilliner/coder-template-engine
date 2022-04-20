@@ -22,5 +22,11 @@
     "price": "500",
     "thumbnail": "https://i.imgur.com/qgJ5ZjG.jpg",
     "id": 5
+  },
+  {
+    "title": "Epiphone Riviera",
+    "price": "300.000",
+    "thumbnail": "https://d1aeri3ty3izns.cloudfront.net/media/4/41921/600/preview_1.jpg",
+    "id": 6
   }
 ]

@@ -1,0 +1,14 @@
+[
+    {   
+        "id": 1,
+        "mail": "elonmusk@gmail.com",
+        "foto": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Elon_Musk_Royal_Society.jpg/220px-Elon_Musk_Royal_Society.jpg",
+        "texto": "I'm a genius, but I'm also a genius with a deadline."
+    },
+    {   
+        "id": 2,
+        "mail": "bill@gmail.com",
+        "foto": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Elon_Musk_Royal_Society.jpg/220px-Elon_Musk_Royal_Society.jpg",
+        "texto": "Elon te compre Twitter eh"
+    }
+]
