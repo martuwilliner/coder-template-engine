@@ -1,22 +1,20 @@
-const express = require('express')
-const { Server: HttpServer } = require('http')
-const { Server: IOServer } = require( 'socket.io' )
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+const path = require('path');
 
 const ProductosApi = require('../controllers/productos.js')
 const ChatApi = require('../controllers/chat.js')
 
 const productosApi = new ProductosApi()
-const chatApi = new ChatApi()
+const mensajeApi = new ChatApi()
 
-
-const app = express()
-
-const httpServer = new HttpServer(app)
-const io = new IOServer(httpServer)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, '../public')));
 
 //--------------------------------------------
 
@@ -40,21 +38,7 @@ app.get('/productos', (req, res) => {
     });
 });
 
-app.get('/chat', (req, res) => {
-    const mensajes = chatApi.listarAll()
 
-    res.render("chat", {
-        mensajes: mensajes,
-        hayMensajes: mensajes.length
-    })
-})
-
-app.post('/', (req, res) => {
-    const mensaje = req.body
-    const msg = chatApi.guardar(mensaje)
-    io.emit('mensaje', msg)
-    res.redirect('/')
-})
 
 //----------------------------------------------------------------
 
@@ -64,7 +48,7 @@ io.on('connection', (socket) => {
     console.log('Nuevo cliente conectado')
     socket.emit('listar-productos', productosApi.listarAll())
 
-    socket.emit('mensajes', chatApi.listarAll())
+    socket.emit('mensajes', mensajeApi.getAllMessages())
 
     socket.on('disconnect', () => {
         console.log('Cliente desconectado')
@@ -74,10 +58,17 @@ io.on('connection', (socket) => {
         socket.emit('nuevo-producto', producto)
     })
 
-    socket.on('nuevo-mensaje', (mensaje) => {
-        chatApi.guardar(mensaje)
-        socket.emit('nuevo-mensaje', mensaje)
-    })
+    /* socket.on('nuevo-mensaje', (mensaje) => {
+        console.log(mensaje)
+        chatApi.saveMessage(mensaje)
+        socket.emit('mensajes', chatApi.getAllMessages())
+    }) */
+
+    socket.on('nuevo-mensaje', (msg) => {
+        console.log('mensaje: ' + msg);
+        mensajeApi.saveMessage(msg);
+        io.sockets.emit('mensajes', mensajeApi.getAllMessages());
+    });
 
 
     
@@ -87,7 +78,7 @@ io.on('connection', (socket) => {
 
 //--------------------------------------------
 const PORT = 8080
-const server = httpServer.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Servidor http escuchando en el puerto ${server.address().port}`)
 })
 server.on("error", error => console.log(`Error en servidor ${error}`))

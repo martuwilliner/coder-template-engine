@@ -1,3 +1,8 @@
+let messageList = document.querySelector('#mensajes');
+let messageInput = document.querySelector('#inputMensaje');
+let usernameInput = document.querySelector('#inputUsername');
+let sendButton = document.querySelector('#btnEnviar');
+
 const socket = io("http://localhost:8080"); // Es lo equiparable a nuestro IO del backend
 
 // Socket io clients
@@ -33,10 +38,11 @@ socket.on('mensajes', (data) => {
         document.querySelector("#mensajes").innerHTML += `
             <div class="mensaje">
                 <div class="mail">
-                    <p> ${mensaje.mail} </p>
+                <h5>${mensaje.user} - <i> ${mensaje.date} </i> </h5>
+                
                 </div>
                 <div class="texto">
-                    <p>${ mensaje.texto }</p>
+                <p>${mensaje.text}</p>
                 </div>
             </div>
             `;
@@ -44,17 +50,25 @@ socket.on('mensajes', (data) => {
     );
 });
 
-const formMensaje = document.querySelector("#formPublicarMensaje");
+// Sockets Mensajes
 
-formMensaje.submit = (e) => {
-    e.preventDefault();
-    const mensaje = {
-        mail: document.querySelector("#mail").value,
-        texto: document.querySelector("#texto").value
+sendButton.addEventListener('click', () => {
+    let message = messageInput.value;
+    let username = usernameInput.value;
+    if(message.length > 3 && username.length > 2) {
+        socket.emit('nuevo-mensaje', {
+            user: username,
+            text: message,
+            date: new Date(Date.now()).toLocaleDateString() + ' ' + new Date(Date.now()).toTimeString().split(' ')[0]
+        });
+        messageInput.value = '';
+    }else{
+        alert('Please enter a valid username and message');
     }
+});
 
-    socket.emit('nuevo-mensaje', mensaje)
-}
+//fin sockets mensajes
+
 
 //capturar formulario
 const form = document.querySelector("#productForm");

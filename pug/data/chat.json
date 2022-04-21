@@ -1,14 +1,3 @@
-[
-    {   
-        "id": 1,
-        "mail": "elonmusk@gmail.com",
-        "foto": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Elon_Musk_Royal_Society.jpg/220px-Elon_Musk_Royal_Society.jpg",
-        "texto": "I'm a genius, but I'm also a genius with a deadline."
-    },
-    {   
-        "id": 2,
-        "mail": "bill@gmail.com",
-        "foto": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Elon_Musk_Royal_Society.jpg/220px-Elon_Musk_Royal_Society.jpg",
-        "texto": "Elon te compre Twitter eh"
-    }
-]
+[{"id":1,"user":"martu@mail.com","text":"holis","date":"20/4/2022 22:45:12"}
+,
+{"id":1,"user":"romanchufumanchu@mail.com","text":"fafa","date":"20/4/2022 22:45:29"}]
